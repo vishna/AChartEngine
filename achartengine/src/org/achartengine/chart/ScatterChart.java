@@ -17,6 +17,8 @@ package org.achartengine.chart;
 
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
@@ -208,7 +210,11 @@ public class ScatterChart extends XYChart {
    * @param y the y value of the point the shape should be drawn at
    */
   private void drawCircle(Canvas canvas, Paint paint, float x, float y) {
-    canvas.drawCircle(x, y, size, paint);
+     int d = circle.getWidth()/2;
+     canvas.translate(x, y);
+     canvas.drawBitmap(circle, -d, -d, paint);
+     canvas.translate(-x, -y);
+    //canvas.drawCircle(x, y, size, paint);
   }
 
   /**
@@ -271,5 +277,7 @@ public class ScatterChart extends XYChart {
   public String getChartType() {
     return TYPE;
   }
+
+   public static Bitmap circle;
 
 }
