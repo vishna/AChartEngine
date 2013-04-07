@@ -19,6 +19,8 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.List;
 
+import android.graphics.*;
+import android.graphics.drawable.GradientDrawable;
 import org.achartengine.model.Point;
 import org.achartengine.model.SeriesSelection;
 import org.achartengine.renderer.DefaultRenderer;
@@ -27,14 +29,8 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
 import org.achartengine.util.MathHelper;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
-import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.RectF;
 
 /**
  * An abstract class to be implemented by the chart rendering classes.
@@ -66,8 +62,12 @@ public abstract class AbstractChart implements Serializable {
    * @param color the color to be used
    */
   protected void drawBackground(DefaultRenderer renderer, Canvas canvas, int x, int y, int width,
-      int height, Paint paint, boolean newColor, int color) {
-    if (renderer.isApplyBackgroundColor() || newColor) {
+      int height, Paint _paint, boolean newColor, int color) {
+     Shader shader = new LinearGradient(0, 0, 0, height - 110, 0xff4b4c4b, 0xff2c3130, Shader.TileMode.CLAMP);
+     Paint paint = new Paint();
+     paint.setShader(shader);
+     canvas.drawRect(new Rect(x, y, x + width, y + height - 110), paint);
+    /*if (renderer.isApplyBackgroundColor() || newColor) {
       if (newColor) {
         paint.setColor(color);
       } else {
@@ -75,7 +75,7 @@ public abstract class AbstractChart implements Serializable {
       }
       paint.setStyle(Style.FILL);
       canvas.drawRect(x, y, x + width, y + height, paint);
-    }
+    }*/
   }
 
   /**
